@@ -17,7 +17,7 @@ async def start(message: types.Message):
         keyboard=[[KeyboardButton(text="📝 ثبت‌نام در آکادمی گردو", web_app=WebAppInfo(url=WEBAPP_URL))]],
         resize_keyboard=True
     )
-    await message.answer("سلام! 👋\nبرای ثبت‌نام روی دکمه زیر بزن:", reply_markup=kb)
+    await message.answer("درود! 👋\nبه آکادمی ما خوش اومدی برای ثبت‌نام روی دکمه زیر بزن:", reply_markup=kb)
 
 @dp.message(F.web_app_data)
 async def webapp_handler(message: types.Message):
@@ -43,7 +43,7 @@ async def webapp_handler(message: types.Message):
         )
 
         await bot.send_message(ADMIN_GROUP_ID, text)
-        await message.answer("✅ ثبت‌نام شما با موفقیت انجام شد و برای رئسا ارسال گردید.")
+        await message.answer("✅ ثبت‌نام شما با موفقیت انجام شد وارسال گردید.")
 
     except Exception as e:
         await message.answer("خطا در پردازش فرم. دوباره تلاش کنید.")
