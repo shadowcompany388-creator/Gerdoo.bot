@@ -13,7 +13,7 @@ BOT_TOKEN = "8802997290:AAHoyFMjxplWtGjVDmJGUzY1nf6lQEtR_hA"
 ADMIN_GROUP_ID = -1004452412169
 
 # موقتاً لینک نتlify را می‌گذاریم، بعد از گرفتن دامنه Railway عوض می‌کنیم
-WEBAPP_URL = "https://quiet-scone-893311.netlify.app/"
+WEBAPP_URL = "https://gerdoobot-production.up.railway.app/"
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
