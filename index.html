@@ -1,5 +1,281 @@
 <!DOCTYPE html>
-<html>
-<head><title>Gerdoo</title></head>
-<body><h1>فرم آکادمی گردو</h1></body>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>ثبت‌نام | آکادمی گردو</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --card: #12121a;
+  --primary: #a855f7;
+  --accent: #e879f9;
+  --text: #f3e8ff;
+  --muted: #9b8fb5;
+  --border: rgba(168, 85, 247, 0.22);
+  --error: #f43f5e;
+  --input-bg: rgba(0,0,0,0.35);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body {
+  font-family: 'Vazirmatn', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 20px 14px 40px;
+}
+.header { text-align: center; margin-bottom: 22px; }
+.logo {
+  font-size: 1.8rem;
+  font-weight: 800;
+  background: linear-gradient(90deg, #c084fc, #a855f7, #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.container { width: 100%; max-width: 560px; margin: 0 auto; }
+.card {
+  background: var(--card);
+  border-radius: 18px;
+  border: 1px solid var(--border);
+  overflow: hidden;
+}
+.form-body { padding: 22px 18px 28px; }
+.form-group { margin-bottom: 15px; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+label { display: block; font-size: 0.84rem; font-weight: 600; margin-bottom: 5px; }
+label .req { color: var(--error); }
+input, select, textarea {
+  width: 100%;
+  padding: 11px 13px;
+  border: 1.5px solid var(--border);
+  border-radius: 10px;
+  font-family: inherit;
+  font-size: 0.93rem;
+  color: var(--text);
+  background: var(--input-bg);
+  outline: none;
+}
+.btn {
+  width: 100%;
+  padding: 13px;
+  border: none;
+  border-radius: 12px;
+  font-family: inherit;
+  font-size: 0.97rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, #a855f7, #e879f9);
+  color: #fff;
+  margin-top: 18px;
+}
+.error-msg { font-size: 0.75rem; color: var(--error); margin-top: 4px; display: none; }
+.error-msg.show { display: block; }
+.parent-note {
+  font-size: 0.8rem;
+  color: var(--muted);
+  background: rgba(168,85,247,0.07);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  margin-bottom: 14px;
+}
+@media (max-width: 520px) {
+  .form-row { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="logo">آکادمی گردو</div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="form-body">
+      <div class="form-row">
+        <div class="form-group">
+          <label>نام <span class="req">*</span></label>
+          <input type="text" id="firstName">
+          <div class="error-msg" id="err-firstName">نام الزامی است</div>
+        </div>
+        <div class="form-group">
+          <label>نام خانوادگی <span class="req">*</span></label>
+          <input type="text" id="lastName">
+          <div class="error-msg" id="err-lastName">نام خانوادگی الزامی است</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>کد ملی <span class="req">*</span></label>
+        <input type="text" id="nationalId" maxlength="10">
+        <div class="error-msg" id="err-nationalId">کد ملی معتبر وارد کنید</div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>تاریخ تولد <span class="req">*</span></label>
+          <input type="date" id="birthDate">
+          <div class="error-msg" id="err-birthDate">تاریخ تولد الزامی است</div>
+        </div>
+        <div class="form-group">
+          <label>جنسیت <span class="req">*</span></label>
+          <select id="gender">
+            <option value="">انتخاب کنید</option>
+            <option value="male">پسر / مرد</option>
+            <option value="female">دختر / زن</option>
+          </select>
+          <div class="error-msg" id="err-gender">جنسیت را انتخاب کنید</div>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>شماره موبایل <span class="req">*</span></label>
+          <input type="tel" id="mobile" maxlength="11">
+          <div class="error-msg" id="err-mobile">شماره معتبر وارد کنید</div>
+        </div>
+        <div class="form-group">
+          <label>ایمیل (اختیاری)</label>
+          <input type="email" id="email">
+        </div>
+      </div>
+
+      <div class="parent-note">اگر زیر ۱۸ سال هستی، شماره والدین را وارد کن.</div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>نام والد / سرپرست</label>
+          <input type="text" id="parentName">
+        </div>
+        <div class="form-group">
+          <label>موبایل والد <span class="req">*</span></label>
+          <input type="tel" id="parentMobile" maxlength="11">
+          <div class="error-msg" id="err-parentMobile">شماره والد الزامی است</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>مقطع تحصیلی <span class="req">*</span></label>
+        <select id="education">
+          <option value="">انتخاب کنید</option>
+          <option value="elementary">دانش‌آموز ابتدایی</option>
+          <option value="middle">متوسطه اول</option>
+          <option value="high">متوسطه دوم</option>
+          <option value="diploma">دیپلم</option>
+          <option value="bachelor">کارشناسی</option>
+          <option value="master">ارشد و بالاتر</option>
+          <option value="other">سایر</option>
+        </select>
+        <div class="error-msg" id="err-education">مقطع را انتخاب کنید</div>
+      </div>
+
+      <div class="form-group">
+        <label>دوره مورد نظر <span class="req">*</span></label>
+        <select id="course">
+          <option value="">انتخاب دوره</option>
+          <option value="ai">هوش مصنوعی</option>
+          <option value="web">طراحی سایت</option>
+          <option value="game3d">بازی‌سازی 3D</option>
+          <option value="animation">انیمیشن‌سازی</option>
+          <option value="other">سایر / مشاوره</option>
+        </select>
+        <div class="error-msg" id="err-course">دوره را انتخاب کنید</div>
+      </div>
+
+      <div class="form-group">
+        <label>سطح آشنایی</label>
+        <select id="level">
+          <option value="beginner">مبتدی</option>
+          <option value="intermediate">متوسط</option>
+          <option value="advanced">پیشرفته</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>توضیحات (اختیاری)</label>
+        <textarea id="notes" rows="3"></textarea>
+      </div>
+
+      <button class="btn" onclick="submitForm()">ثبت نهایی ثبت‌نام ✓</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  const tg = window.Telegram?.WebApp;
+  if (tg) {
+    tg.ready();
+    tg.expand();
+  }
+
+  function showError(id) {
+    document.getElementById(id).classList.add('show');
+  }
+  function clearErrors() {
+    document.querySelectorAll('.error-msg').forEach(e => e.classList.remove('show'));
+  }
+
+  async function submitForm() {
+    clearErrors();
+    let valid = true;
+
+    const firstName = document.getElementById('firstName').value.trim();
+    const lastName = document.getElementById('lastName').value.trim();
+    const nationalId = document.getElementById('nationalId').value.trim();
+    const birthDate = document.getElementById('birthDate').value;
+    const gender = document.getElementById('gender').value;
+    const mobile = document.getElementById('mobile').value.trim();
+    const parentMobile = document.getElementById('parentMobile').value.trim();
+    const education = document.getElementById('education').value;
+    const course = document.getElementById('course').value;
+
+    if (!firstName) { showError('err-firstName'); valid = false; }
+    if (!lastName) { showError('err-lastName'); valid = false; }
+    if (!/^\d{10}$/.test(nationalId)) { showError('err-nationalId'); valid = false; }
+    if (!birthDate) { showError('err-birthDate'); valid = false; }
+    if (!gender) { showError('err-gender'); valid = false; }
+    if (!/^09\d{9}$/.test(mobile)) { showError('err-mobile'); valid = false; }
+    if (!/^09\d{9}$/.test(parentMobile)) { showError('err-parentMobile'); valid = false; }
+    if (!education) { showError('err-education'); valid = false; }
+    if (!course) { showError('err-course'); valid = false; }
+
+    if (!valid) return;
+
+    const data = {
+      firstName, lastName, nationalId, birthDate, gender, mobile,
+      email: document.getElementById('email').value.trim() || "ندارد",
+      parentName: document.getElementById('parentName').value.trim() || "ندارد",
+      parentMobile, education, course,
+      level: document.getElementById('level').value,
+      notes: document.getElementById('notes').value.trim() || "ندارد"
+    };
+
+    // اگر داخل مینی‌اپ تلگرام بود
+    if (tg && tg.initData) {
+      tg.sendData(JSON.stringify(data));
+      tg.close();
+      return;
+    }
+
+    // اگر داخل سایت عادی بود
+    try {
+      const res = await fetch('/submit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      });
+      const result = await res.json();
+      if (result.ok) {
+        alert('✅ ثبت‌نام با موفقیت انجام شد');
+        location.reload();
+      } else {
+        alert('خطا در ثبت');
+      }
+    } catch (e) {
+      alert('خطا در ارتباط با سرور');
+    }
+  }
+</script>
+</body>
 </html>
