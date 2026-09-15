@@ -1,2 +1,5 @@
+fastapi
+uvicorn
+httpx
 aiogram==3.13.1
-aiohttp
+python-multipart
